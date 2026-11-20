@@ -26,4 +26,30 @@ public class ServiceHistory {
         }
         return null;
     }
+
+    // Displays all service records
+    public void displayAllRecords() {
+        if (records.isEmpty()) {
+            System.out.println("No service records available.");
+            return;
+        }
+
+        System.out.println("\n===== SERVICE HISTORY =====");
+        for (int i = 0; i < records.size(); i++) {
+            records.get(i).display();
+            System.out.println("----------------------");
+        }
+    }
+
+    // Displays a particular service record
+    public void displayRecord(int id) {
+        JobCard job = searchJob(id);
+
+        if (job != null) {
+            System.out.println("\n===== SERVICE DETAILS =====");
+            job.display();
+        } else {
+            System.out.println("Job ID not found!");
+        }
+    }
 }
