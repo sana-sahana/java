@@ -18,4 +18,17 @@ public class ServiceStatusManager {
         if (service == null) throw new InvalidServiceException("Job ID not found: " + jobId);
         return service;
     }
+
+    public void updateStatus(String jobId, String statusText) throws InvalidServiceException {
+        Service service = getService(jobId);
+        service.updateStatus(ServiceStatus.fromInput(statusText));
+    }
+
+    public void displayStatus(String jobId) throws InvalidServiceException {
+        Service service = getService(jobId);
+        System.out.println("Job ID: " + service.getJobId());
+        System.out.println("Service: " + service.getDescription());
+        System.out.println("Type: " + service.getServiceType());
+        System.out.println("Status: " + service.getStatus());
+    }
 }
