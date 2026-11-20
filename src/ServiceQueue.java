@@ -52,4 +52,23 @@ public class ServiceQueue {
 
         return jobId;
     }
+
+    // Checks whether queue is empty
+    public boolean isEmpty() {
+        return size == 0;
+    }
+
+    // Displays all pending jobs
+    public void displayQueue() {
+        if (isEmpty()) {
+            System.out.println("No pending jobs!");
+            return;
+        }
+
+        System.out.println("\n===== PENDING JOBS =====");
+        for (int i = 0; i < size; i++) {
+            int index = (front + i) % queue.length;
+            System.out.println("Job ID: " + queue[index]);
+        }
+    }
 }
