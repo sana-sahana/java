@@ -9,4 +9,10 @@ public class ServiceHistory {
     public ServiceHistory() {
         records = new ArrayList<JobCard>();
     }
+
+    // Adds a new job card to service history
+    public void addRecord(JobCard job) {
+        records.add(job);
+        System.out.println("Service record added successfully!");
+    }
 }
