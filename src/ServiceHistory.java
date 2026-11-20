@@ -15,4 +15,15 @@ public class ServiceHistory {
         records.add(job);
         System.out.println("Service record added successfully!");
     }
+
+    // Searches for a job using Job ID (Linear Search)
+    public JobCard searchJob(int id) {
+        for (int i = 0; i < records.size(); i++) {
+            JobCard job = records.get(i);
+            if (job.getJobId() == id) {
+                return job;
+            }
+        }
+        return null;
+    }
 }
