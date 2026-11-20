@@ -87,14 +87,44 @@ public class Billing {
     }
 
     /**
-     * Calculates the final bill amount.
+     * Calculates the standard final bill amount.
      * Final Bill = Total Spare Parts Cost + Labour Charges.
      * 
-     * @return final bill amount
+     * @return standard final bill amount
      */
     public double calculateFinalBill() {
         double sparePartsTotal = calculateTotalSparePartsCost();
-        double finalBill = sparePartsTotal + this.labourCharge;
-        return finalBill;
+        return sparePartsTotal + this.labourCharge;
+    }
+
+    /**
+     * Method Overloading (Variant 1):
+     * Calculates the final bill with a discount percentage applied.
+     * 
+     * @param discountPercentage percentage discount to apply (e.g. 10 for 10%)
+     * @return discounted final bill amount
+     */
+    public double calculateFinalBill(double discountPercentage) {
+        double baseBill = calculateFinalBill();
+        double discountAmount = (baseBill * discountPercentage) / 100.0;
+        return baseBill - discountAmount;
+    }
+
+    /**
+     * Method Overloading (Variant 2):
+     * Calculates the final bill with a flat discount amount and tax percentage.
+     * 
+     * @param discountAmount flat discount amount in currency
+     * @param taxPercentage tax percentage to apply on the discounted amount
+     * @return final bill amount after discount and tax
+     */
+    public double calculateFinalBill(double discountAmount, double taxPercentage) {
+        double baseBill = calculateFinalBill();
+        double afterDiscount = baseBill - discountAmount;
+        if (afterDiscount < 0) {
+            afterDiscount = 0;
+        }
+        double taxAmount = (afterDiscount * taxPercentage) / 100.0;
+        return afterDiscount + taxAmount;
     }
 }
