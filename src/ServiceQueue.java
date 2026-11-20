@@ -12,4 +12,18 @@ public class ServiceQueue {
         rear = -1;
         size = 0;
     }
+
+    // Adds a new job to the queue
+    public void enqueue(int jobId) throws Exception {
+        if (size == queue.length) {
+            System.out.println("Service queue is full!");
+            return;
+        }
+
+        rear = (rear + 1) % queue.length;
+        queue[rear] = jobId;
+        size++;
+
+        System.out.println("Job added to pending queue.");
+    }
 }
