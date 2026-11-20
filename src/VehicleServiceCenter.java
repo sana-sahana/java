@@ -14,6 +14,74 @@ public class VehicleServiceCenter {
     static HashMap<Integer, ServiceStatus> statusMap = new HashMap<Integer, ServiceStatus>();
     static HashMap<Integer, Billing> billMap = new HashMap<Integer, Billing>();
 
+    // Creates a new vehicle service job
+    public static void createJob() {
+        System.out.print("Enter Job ID: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        // Check whether Job ID already exists
+        if (history.searchJob(id) != null) {
+            System.out.println("Error: Job ID already exists! Please enter a unique ID.");
+            return;
+        }
+
+        System.out.print("Enter Customer Name: ");
+        String customerName = sc.nextLine();
+
+        System.out.print("Enter Vehicle Number: ");
+        String vehicleNumber = sc.nextLine();
+
+        System.out.print("Enter Vehicle Model: ");
+        String vehicleModel = sc.nextLine();
+
+        // Create JobCard using Member 1's constructor
+        JobCard job = new JobCard(id, customerName, vehicleNumber, vehicleModel);
+        history.addRecord(job);
+
+        // Create ServiceStatus using Member 2's constructor
+        ServiceStatus status = new ServiceStatus(id);
+        statusMap.put(id, status);
+
+        // Add Job ID to pending queue
+        try {
+            queue.enqueue(id);
+        } catch (ServiceQueue.QueueFullException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // Updates the service status of a vehicle
+    public static void updateService() {
+        System.out.print("Enter Job ID: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        // Check whether Job ID exists
+        if (history.searchJob(id) == null || !statusMap.containsKey(id)) {
+            System.out.println("Error: Job ID not found!");
+            return;
+        }
+
+        System.out.println("\nSelect Status:");
+        System.out.println("1 - Pending");
+        System.out.println("2 - In Progress");
+        System.out.println("3 - Completed");
+        System.out.print("Enter choice: ");
+        int newStatus = Integer.parseInt(sc.nextLine());
+
+        ServiceStatus status = statusMap.get(id);
+
+        try {
+            status.updateStatus(newStatus);
+
+            // If status is no longer Pending, remove from pending queue
+            if (newStatus != 1) {
+                queue.removeJob(id);
+            }
+        } catch (InvalidServiceException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     public static void main(String[] args) {
         int choice = 0;
 
@@ -40,10 +108,10 @@ public class VehicleServiceCenter {
 
             switch (choice) {
                 case 1:
-                    System.out.println("Create Job Card selected.");
+                    createJob();
                     break;
                 case 2:
-                    System.out.println("Update Service Status selected.");
+                    updateService();
                     break;
                 case 3:
                     System.out.println("Generate Spare Parts Bill selected.");
