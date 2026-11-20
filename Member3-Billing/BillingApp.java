@@ -68,14 +68,22 @@ public class BillingApp {
                     }
                 }
 
-                // Step 4: Calculate totals
-                double sparePartsTotal = billing.calculateTotalSparePartsCost();
-                double finalBill = billing.calculateFinalBill();
+                // Step 4: Display neatly formatted bill receipt
+                System.out.println("\nGenerating final bill receipt...");
+                BillReceipt.printReceipt(billing);
 
-                System.out.println("\n[Billing Calculations Completed Successfully]");
-                System.out.println("Total Spare Parts Cost: Rs. " + formatAmount(sparePartsTotal));
-                System.out.println("Labour Charges:        Rs. " + formatAmount(billing.getLabourCharge()));
-                System.out.println("Final Bill Amount:     Rs. " + formatAmount(finalBill));
+                // Option to view discounted bill (demonstrating method overloading)
+                System.out.print("\nDo you want to apply a customer discount? (yes/no): ");
+                String applyDiscount = scanner.nextLine().trim().toLowerCase();
+                if (applyDiscount.equals("yes") || applyDiscount.equals("y")) {
+                    System.out.print("Enter discount percentage (%): ");
+                    try {
+                        double discPercent = Double.parseDouble(scanner.nextLine().trim());
+                        BillReceipt.printReceipt(billing, discPercent);
+                    } catch (NumberFormatException e) {
+                        System.out.println("Invalid discount percentage entered.");
+                    }
+                }
 
             } catch (InvalidBillException e) {
                 System.out.println("\n[Bill Processing Error]: " + e.getMessage());
