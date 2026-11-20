@@ -1,7 +1,5 @@
 public class Vehicle {
-    private String vehicleNumber;
-    private String ownerName;
-    private String model;
+    private String vehicleNumber, ownerName, model;
 
     public Vehicle(String vehicleNumber, String ownerName, String model) {
         this.vehicleNumber = vehicleNumber;

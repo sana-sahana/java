@@ -1,8 +1,7 @@
 public class JobCard {
     private static int counter = 1001;
     private int jobId;
-    private String vehicleNumber;
-    private String issueDescription;
+    private String vehicleNumber, issueDescription;
 
     public JobCard(String vehicleNumber, String issueDescription) {
         this.jobId = counter++;
