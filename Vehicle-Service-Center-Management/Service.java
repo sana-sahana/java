@@ -5,8 +5,10 @@ public abstract class Service {
     private ServiceStatus status;
 
     protected Service(String jobId, String description) {
-        this.jobId = jobId;
-        this.description = description;
+        if (jobId == null || jobId.trim().isEmpty()) throw new IllegalArgumentException("Job ID cannot be empty.");
+        if (description == null || description.trim().isEmpty()) throw new IllegalArgumentException("Description cannot be empty.");
+        this.jobId = jobId.trim().toUpperCase();
+        this.description = description.trim();
     }
 
     public String getJobId() { return jobId; }
