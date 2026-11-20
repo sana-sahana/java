@@ -64,17 +64,25 @@ public class Billing {
     }
 
     /**
+     * Calculates the total cost of all spare parts.
+     * 
+     * @return total cost of spare parts
+     */
+    public double calculateTotalSparePartsCost() {
+        double totalSpareParts = 0.0;
+        for (SparePart part : spareParts) {
+            totalSpareParts += part.getCost();
+        }
+        return totalSpareParts;
+    }
+
+    /**
      * Implements basic bill calculation.
      * Computes the sum of all spare parts and adds the labour charge.
      * 
      * @return total bill amount
      */
     public double calculateBill() {
-        double total = 0.0;
-        for (SparePart part : spareParts) {
-            total += part.getCost();
-        }
-        total += labourCharge;
-        return total;
+        return calculateTotalSparePartsCost() + labourCharge;
     }
 }
