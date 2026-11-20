@@ -36,7 +36,7 @@ public class ServiceHistory {
 
         System.out.println("\n===== SERVICE HISTORY =====");
         for (int i = 0; i < records.size(); i++) {
-            records.get(i).display();
+            records.get(i).displayJobCard();
             System.out.println("----------------------");
         }
     }
@@ -47,7 +47,7 @@ public class ServiceHistory {
 
         if (job != null) {
             System.out.println("\n===== SERVICE DETAILS =====");
-            job.display();
+            job.displayJobCard();
         } else {
             System.out.println("Job ID not found!");
         }
