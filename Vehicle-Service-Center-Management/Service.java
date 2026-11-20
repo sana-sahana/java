@@ -2,7 +2,7 @@
 public abstract class Service {
     private final String jobId;
     private final String description;
-    private ServiceStatus status;
+    private ServiceStatus status = ServiceStatus.PENDING;
 
     protected Service(String jobId, String description) {
         if (jobId == null || jobId.trim().isEmpty()) throw new IllegalArgumentException("Job ID cannot be empty.");
