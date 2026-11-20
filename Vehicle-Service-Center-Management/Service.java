@@ -12,7 +12,10 @@ public abstract class Service {
     public String getJobId() { return jobId; }
     public String getDescription() { return description; }
     public ServiceStatus getStatus() { return status; }
-    protected void setStatus(ServiceStatus status) { this.status = status; }
+    public void updateStatus(ServiceStatus status) {
+        if (status == null) throw new IllegalArgumentException("Status is required.");
+        this.status = status;
+    }
 
     public abstract String getServiceType();
 }
