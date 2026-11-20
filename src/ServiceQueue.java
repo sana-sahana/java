@@ -26,4 +26,18 @@ public class ServiceQueue {
 
         System.out.println("Job added to pending queue.");
     }
+
+    // Removes the first job from the queue
+    public int dequeue() throws Exception {
+        if (size == 0) {
+            System.out.println("No pending jobs available!");
+            return -1;
+        }
+
+        int jobId = queue[front];
+        front = (front + 1) % queue.length;
+        size--;
+
+        return jobId;
+    }
 }
