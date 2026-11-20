@@ -10,10 +10,19 @@ import java.util.ArrayList;
 public class Billing {
     // List to store multiple spare parts
     private ArrayList<SparePart> spareParts;
+    // Labour or service charges
+    private double labourCharge;
 
     // Default constructor
     public Billing() {
         this.spareParts = new ArrayList<>();
+        this.labourCharge = 0.0;
+    }
+
+    // Parameterized constructor with labour charge
+    public Billing(double labourCharge) {
+        this.spareParts = new ArrayList<>();
+        this.labourCharge = labourCharge;
     }
 
     /**
@@ -34,5 +43,23 @@ public class Billing {
      */
     public ArrayList<SparePart> getSpareParts() {
         return spareParts;
+    }
+
+    /**
+     * Gets the labour charges.
+     * 
+     * @return labour charge amount
+     */
+    public double getLabourCharge() {
+        return labourCharge;
+    }
+
+    /**
+     * Sets the labour charges.
+     * 
+     * @param labourCharge labour charge amount
+     */
+    public void setLabourCharge(double labourCharge) {
+        this.labourCharge = labourCharge;
     }
 }
