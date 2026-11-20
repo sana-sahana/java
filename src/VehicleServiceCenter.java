@@ -141,6 +141,29 @@ public class VehicleServiceCenter {
         }
     }
 
+    // Displays all pending jobs in the queue
+    public static void displayPendingJobs() {
+        queue.displayQueue();
+    }
+
+    // Processes the next vehicle waiting for service
+    public static void processNextJob() {
+        try {
+            int jobId = queue.dequeue();
+            System.out.println("Processing Job ID: " + jobId);
+
+            ServiceStatus status = statusMap.get(jobId);
+            if (status != null) {
+                status.updateStatus(2); // 2 = In Progress
+                System.out.println("Job ID " + jobId + " status updated to In Progress.");
+            }
+        } catch (ServiceQueue.QueueEmptyException e) {
+            System.out.println("Error: " + e.getMessage());
+        } catch (InvalidServiceException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
     // Displays all service records
     public static void displayAllRecords() {
         history.displayAllRecords();
@@ -184,10 +207,10 @@ public class VehicleServiceCenter {
                     searchHistory();
                     break;
                 case 5:
-                    System.out.println("View Pending Jobs selected.");
+                    displayPendingJobs();
                     break;
                 case 6:
-                    System.out.println("Process Next Job selected.");
+                    processNextJob();
                     break;
                 case 7:
                     displayAllRecords();
