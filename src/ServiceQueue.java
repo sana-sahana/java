@@ -13,11 +13,24 @@ public class ServiceQueue {
         size = 0;
     }
 
+    // Custom exception for full queue
+    static class QueueFullException extends Exception {
+        public QueueFullException(String message) {
+            super(message);
+        }
+    }
+
+    // Custom exception for empty queue
+    static class QueueEmptyException extends Exception {
+        public QueueEmptyException(String message) {
+            super(message);
+        }
+    }
+
     // Adds a new job to the queue
-    public void enqueue(int jobId) throws Exception {
+    public void enqueue(int jobId) throws QueueFullException {
         if (size == queue.length) {
-            System.out.println("Service queue is full!");
-            return;
+            throw new QueueFullException("Service queue is full!");
         }
 
         rear = (rear + 1) % queue.length;
@@ -28,10 +41,9 @@ public class ServiceQueue {
     }
 
     // Removes the first job from the queue
-    public int dequeue() throws Exception {
+    public int dequeue() throws QueueEmptyException {
         if (size == 0) {
-            System.out.println("No pending jobs available!");
-            return -1;
+            throw new QueueEmptyException("No pending jobs available!");
         }
 
         int jobId = queue[front];
