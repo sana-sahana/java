@@ -14,8 +14,8 @@ public abstract class Service {
     public String getJobId() { return jobId; }
     public String getDescription() { return description; }
     public ServiceStatus getStatus() { return status; }
-    public void updateStatus(ServiceStatus status) {
-        if (status == null) throw new IllegalArgumentException("Status is required.");
+    public void updateStatus(ServiceStatus status) throws InvalidServiceException {
+        if (status == null) throw new InvalidServiceException("Status is required.");
         this.status = status;
     }
 
