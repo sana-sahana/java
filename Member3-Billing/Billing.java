@@ -62,4 +62,19 @@ public class Billing {
     public void setLabourCharge(double labourCharge) {
         this.labourCharge = labourCharge;
     }
+
+    /**
+     * Implements basic bill calculation.
+     * Computes the sum of all spare parts and adds the labour charge.
+     * 
+     * @return total bill amount
+     */
+    public double calculateBill() {
+        double total = 0.0;
+        for (SparePart part : spareParts) {
+            total += part.getCost();
+        }
+        total += labourCharge;
+        return total;
+    }
 }
