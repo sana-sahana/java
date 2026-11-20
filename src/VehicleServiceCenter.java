@@ -82,6 +82,70 @@ public class VehicleServiceCenter {
         }
     }
 
+    // Generates spare parts and labour bill
+    public static void generateBill() {
+        System.out.print("Enter Job ID: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        // Check whether job exists
+        if (history.searchJob(id) == null) {
+            System.out.println("Error: Job ID not found!");
+            return;
+        }
+
+        System.out.print("Enter Spare Parts Cost: ");
+        double partsCost = Double.parseDouble(sc.nextLine());
+
+        System.out.print("Enter Labour Charges: ");
+        double labourCharges = Double.parseDouble(sc.nextLine());
+
+        Billing bill = new Billing();
+
+        try {
+            bill.generateBill(partsCost, labourCharges);
+            billMap.put(id, bill);
+
+            System.out.println("\n===== BILL DETAILS =====");
+            bill.displayBill();
+        } catch (InvalidBillException e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    // Displays the complete service details of one vehicle
+    public static void searchHistory() {
+        System.out.print("Enter Job ID: ");
+        int id = Integer.parseInt(sc.nextLine());
+
+        JobCard job = history.searchJob(id);
+
+        // If job does not exist
+        if (job == null) {
+            System.out.println("Error: Job ID not found!");
+            return;
+        }
+
+        System.out.println("\n===== JOB CARD DETAILS =====");
+        job.display();
+
+        System.out.println("\n===== SERVICE STATUS =====");
+        if (statusMap.containsKey(id)) {
+            statusMap.get(id).displayStatus();
+        }
+
+        System.out.println("\n===== BILLING DETAILS =====");
+        if (billMap.containsKey(id)) {
+            billMap.get(id).displayBill();
+        } else {
+            System.out.println("Bill has not been generated yet.");
+        }
+    }
+
+    // Displays all service records
+    public static void displayAllRecords() {
+        history.displayAllRecords();
+    }
+
     public static void main(String[] args) {
         int choice = 0;
 
@@ -114,10 +178,10 @@ public class VehicleServiceCenter {
                     updateService();
                     break;
                 case 3:
-                    System.out.println("Generate Spare Parts Bill selected.");
+                    generateBill();
                     break;
                 case 4:
-                    System.out.println("View Service History selected.");
+                    searchHistory();
                     break;
                 case 5:
                     System.out.println("View Pending Jobs selected.");
@@ -126,7 +190,7 @@ public class VehicleServiceCenter {
                     System.out.println("Process Next Job selected.");
                     break;
                 case 7:
-                    System.out.println("View All Service Records selected.");
+                    displayAllRecords();
                     break;
                 case 8:
                     System.out.println("Exiting application. Thank you!");
