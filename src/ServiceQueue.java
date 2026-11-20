@@ -53,6 +53,25 @@ public class ServiceQueue {
         return jobId;
     }
 
+    // Removes a particular job from the queue
+    public void removeJob(int jobId) {
+        int temp[] = new int[queue.length];
+        int newSize = 0;
+
+        for (int i = 0; i < size; i++) {
+            int index = (front + i) % queue.length;
+            if (queue[index] != jobId) {
+                temp[newSize] = queue[index];
+                newSize++;
+            }
+        }
+
+        queue = temp;
+        front = 0;
+        size = newSize;
+        rear = size - 1;
+    }
+
     // Checks whether queue is empty
     public boolean isEmpty() {
         return size == 0;
