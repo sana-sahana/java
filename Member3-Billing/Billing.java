@@ -83,6 +83,18 @@ public class Billing {
      * @return total bill amount
      */
     public double calculateBill() {
-        return calculateTotalSparePartsCost() + labourCharge;
+        return calculateFinalBill();
+    }
+
+    /**
+     * Calculates the final bill amount.
+     * Final Bill = Total Spare Parts Cost + Labour Charges.
+     * 
+     * @return final bill amount
+     */
+    public double calculateFinalBill() {
+        double sparePartsTotal = calculateTotalSparePartsCost();
+        double finalBill = sparePartsTotal + this.labourCharge;
+        return finalBill;
     }
 }
