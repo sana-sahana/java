@@ -7,7 +7,7 @@ public class ServiceStatusManager {
 
     public void addService(Service service) throws InvalidServiceException {
         if (service == null) throw new InvalidServiceException("Service record is required.");
-        String jobId = service.getJobId();
+        String jobId = service.getJobId().trim().toUpperCase();
         if (services.containsKey(jobId)) throw new InvalidServiceException("Duplicate Job ID: " + jobId);
         services.put(jobId, service);
     }
