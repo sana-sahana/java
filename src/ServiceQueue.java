@@ -5,7 +5,11 @@ public class ServiceQueue {
     private int rear;
     private int size;
 
-    // Constructor
+    // Constructor to initialize circular queue
     public ServiceQueue(int capacity) {
+        queue = new int[capacity];
+        front = 0;
+        rear = -1;
+        size = 0;
     }
 }
